@@ -1,6 +1,7 @@
 package gui;
 
 import controller.ControllerDB;
+import game.Game;
 import interfaces.Initiable;
 
 import javax.swing.*;
@@ -44,12 +45,21 @@ public class MainGUI extends JFrame implements ActionListener, Initiable, Runnab
 //    STATUS ICON VARIBALES
     private static final String ICON_CONNECTED = "src/main/resources/icons/connected.png";
     private static final String ICON_REFUSED = "src/main/resources/icons/cannotConnect.png";
-
+//    LABELS LOCATIONS AND SIZE VARIABLES
+    private static final short LABEL_USER_LOCATION_X = 205;
+    private static final short LABEL_USER_LOCATION_Y = -25;
+    private static final short LABEL_USER_HGAP = 66;
+    private static final short LABEL_USER_VGAP = 66;
+    private static final short LABEL_SCORE_LOCATION_X = 335;
+    private static final short LABEL_SCORE_LOCATION_Y = -25;
+    private static final short LABEL_SCORE_HGAP = 116;
+    private static final short LABEL_SCORE_VGAP = 66;
 
     ControllerDB controllerDB = new ControllerDB();
     JButton jPlay,jLogin,jRegister,jLoggout,jSettings;
     JPanel jPanel;
     JLabel jStatus = new JLabel();
+    JLabel jUser,jHighScore;
 
     private static boolean loggedIn = false;
 
@@ -63,6 +73,7 @@ public class MainGUI extends JFrame implements ActionListener, Initiable, Runnab
         } else {
             initFrame();
             initLoggedButtons();
+            initLabels();
             initStatus(controllerDB.getStatus());
             initLoggedPanel();
             endInit();
@@ -115,8 +126,20 @@ public class MainGUI extends JFrame implements ActionListener, Initiable, Runnab
         jPlay.setFont(new Font(BUTTON_FONT_TYPE,BUTTON_FONT_STYLE,BUTTON_FONT_SIZE));
         jPlay.setOpaque(false);
 
+        jSettings.addActionListener(this::openSettings);
+        jPlay.addActionListener(this::startGame);
         jLoggout.addActionListener(this::actionLoggoutButton);
     }
+    public void openSettings(ActionEvent av){
+        new SettingsGUI();
+        this.dispose();
+    }
+
+    public void startGame(ActionEvent av){
+        new Game();
+        this.dispose();
+    }
+
     public void initLoggedPanel(){
         jPanel = new JPanel();
         jPanel.setLayout(null);
@@ -125,6 +148,8 @@ public class MainGUI extends JFrame implements ActionListener, Initiable, Runnab
         jPanel.add(jLoggout);
         jPanel.add(jSettings);
         jPanel.add(jStatus);
+        jPanel.add(jUser);
+        jPanel.add(jHighScore);
     }
 
     public void initStatus(boolean status){
@@ -197,5 +222,14 @@ public class MainGUI extends JFrame implements ActionListener, Initiable, Runnab
     }
     @Override
     public void initLabels() {
+        jUser = new JLabel("User: " + controllerDB.getAccount().getUser());
+        jHighScore = new JLabel("High score: " + controllerDB.getAccount().getScore());
+
+        jUser.setBounds(LABEL_USER_LOCATION_X,LABEL_USER_LOCATION_Y,LABEL_USER_HGAP,LABEL_USER_VGAP);
+        jHighScore.setBounds(LABEL_SCORE_LOCATION_X,LABEL_SCORE_LOCATION_Y,LABEL_SCORE_HGAP,LABEL_SCORE_VGAP);
+        jUser.setForeground(Color.red);
+        jHighScore.setForeground(Color.red);
+        jUser.setFont(new Font(BUTTON_FONT_TYPE,BUTTON_FONT_STYLE,BUTTON_FONT_SIZE));
+        jHighScore.setFont(new Font(BUTTON_FONT_TYPE,BUTTON_FONT_STYLE,BUTTON_FONT_SIZE));
     }
 }

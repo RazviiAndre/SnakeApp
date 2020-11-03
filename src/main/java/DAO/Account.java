@@ -13,6 +13,7 @@ public class Account {
     private String retypedPassword;
     private String email;
     private String phone;
+    private int score;
 
     public Account(){
 
@@ -24,6 +25,7 @@ public class Account {
         this.retypedPassword = retypedPassword;
         this.email = email;
         this.phone = phone;
+        this.score = 0;
     }
 
     @Override
@@ -33,7 +35,7 @@ public class Account {
                 ", user='" + user + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
+                ", phone='" + phone + '\'' + ", score='" + score + "]" +
                 '}';
     }
 
@@ -48,5 +50,8 @@ public class Account {
     }
     public String getPhone() {
         return phone;
+    }
+    public int getScore(){
+        return score;
     }
 }
