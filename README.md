@@ -1,5 +1,5 @@
 # SnakeApp
-# DESCRIPTION :\n
+# DESCRIPTION :\\n
 SnakeApp created with swing connected to mysql database
 The application is based on the old snake game which is linked to an easy-to-use graphical interface.
 The application is connected to a MySQL database, so in order to play we need an account.
