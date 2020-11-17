@@ -7,24 +7,31 @@
  #                                                                            #
  #############################################################################*/
 
-import controller.ControllerDB;
-import gui.MainGUI;
+package game;
 
-import java.util.Scanner;
+import java.awt.*;
+import java.util.Random;
 
+public class Apple{
+    private static Point apple;
 
-public class Main {
-    public static void main(String[] args) {
-        MainGUI mainGUI = new MainGUI();
-        mainGUI.run();
-        ControllerDB controllerDB = new ControllerDB();
+    Apple(){
+        apple = new Point(300,200);
+    }
 
+    public void newApple(int newX, int newY){
+        Random random = new Random();
+        int x = random.ints(0,newX).filter(value -> value % 20 == 0).findAny().getAsInt();
+        int y = random.ints(0,newY).filter(value -> value % 20 == 0).findAny().getAsInt();
 
-        Scanner IN = new Scanner(System.in);
-        String input = "";
-        while(!input.equals("stop")){
-            input = IN.nextLine();
-            System.out.println(controllerDB.getAccount().toString());
-        }
+        apple = new Point(x, y);
+    }
+
+    public Point getApple() {
+        return apple;
+    }
+
+    public void setApple(Point apple) {
+        Apple.apple = apple;
     }
 }

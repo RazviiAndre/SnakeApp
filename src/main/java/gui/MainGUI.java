@@ -1,12 +1,20 @@
+/*#############################################################################
+ # Copyright (c) rzvdev                                                       #
+ # Created in 11/17/20, 7:45 PM                                               #
+ # Author : Razvi Andre                                                       #
+ # Linkedin : https://www.linkedin.com/in/lungu-razvan-andre-4858a417b        #
+ # Github : https://github.com/razviiandre                                    #
+ #                                                                            #
+ #############################################################################*/
 package gui;
 
 import controller.ControllerDB;
-import game.Game;
 import interfaces.Initiable;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainGUI extends JFrame implements ActionListener, Initiable, Runnable {
 //    FRAME VARIABLES
@@ -136,7 +144,6 @@ public class MainGUI extends JFrame implements ActionListener, Initiable, Runnab
     }
 
     public void startGame(ActionEvent av){
-        new Game();
         this.dispose();
     }
 
@@ -210,8 +217,8 @@ public class MainGUI extends JFrame implements ActionListener, Initiable, Runnab
     }
     @Override
     public void endInit() {
-        add(jPanel);
-        setVisible(true);
+            add(jPanel);
+            setVisible(true);
     }
     public static void setLoggedIn(boolean loggedIn) {
         MainGUI.loggedIn = loggedIn;
