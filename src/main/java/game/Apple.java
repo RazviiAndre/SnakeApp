@@ -20,6 +20,7 @@ public class Apple{
     }
 
     public void newApple(int newX, int newY){
+        // TODO: 19-Nov-20 Improve function,  apple spawned off-screen
         Random random = new Random();
         int x = random.ints(0,newX).filter(value -> value % 20 == 0).findAny().getAsInt();
         int y = random.ints(0,newY).filter(value -> value % 20 == 0).findAny().getAsInt();

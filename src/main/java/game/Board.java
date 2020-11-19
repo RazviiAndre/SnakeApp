@@ -18,9 +18,10 @@ import java.awt.event.ActionListener;
 
 public class Board extends JPanel implements ActionListener {
     private final static String JFRAME_TITLE = "Snake";
+    private static final ImageIcon JFRAME_ICON = new ImageIcon("src/main/resources/icons/snake.png");
     public final static int JFRAME_WIDTH = SettingsGUI.getGameResolutionWidth();
     public final static int JFRAME_HEIGHT = SettingsGUI.getGameResolutionHeight();
-    private static final ImageIcon JFRAME_ICON = new ImageIcon("src/main/resources/icons/snake.png");
+    private static final short OBJECT_SCALE = 20;
 
     public Timer timer;
 
@@ -52,10 +53,10 @@ public class Board extends JPanel implements ActionListener {
 
     public void initFrame(){
         JFrame jFrame = new JFrame(JFRAME_TITLE);
-        jFrame.getContentPane().add(this);
-        jFrame.setLocationRelativeTo(null);
         jFrame.setSize(JFRAME_WIDTH, JFRAME_HEIGHT);
         jFrame.setVisible(true);
+        jFrame.setLocationRelativeTo(null);
+        jFrame.getContentPane().add(this);
         jFrame.setIconImage(JFRAME_ICON.getImage());
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setResizable(false);
@@ -77,11 +78,11 @@ public class Board extends JPanel implements ActionListener {
         super.paint(g);
         for (Point p : snake.getSnakeLocation()) {
             g.setColor(Color.RED);
-            g.fillRect(p.x, p.y, 30, 30);
+            g.fillRect(p.x, p.y, OBJECT_SCALE, OBJECT_SCALE);
         }
 
         g.setColor(Color.YELLOW);
-        g.fillRect(apple.getApple().x,apple.getApple().y,30,30);
+        g.fillRect(apple.getApple().x,apple.getApple().y,OBJECT_SCALE,OBJECT_SCALE);
     }
 
 
@@ -95,7 +96,7 @@ public class Board extends JPanel implements ActionListener {
             if(snake.eatApple()){
                 apple.newApple(JFRAME_HEIGHT-200,JFRAME_WIDTH-200);
             } else {
-                snake.getSnakeLocation().remove(snake.getSnakeLocation().size() - 1);
+                snake.removeLastSnakePart();
             }
             repaint();
 

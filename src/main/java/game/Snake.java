@@ -16,7 +16,6 @@ public class Snake{
     private static Direction direction = Direction.DOWN;
     private final Apple apple = new Apple();
 
-
     public Snake(){
 
     }
@@ -39,9 +38,15 @@ public class Snake{
     }
 
     public boolean checkPosition(int jframe_height, int jframe_width){
-        // TODO: 19-Nov-20 - IMPROVE CHECK POSITION SYSTEM. IF SNAKE LOCATION IS EQUALS SNAKEPARTS LOCATIONS THEN GAMEOVER
         for(Point p : snakeLocation){
             if(p.x == jframe_width - 40 || p.y == jframe_height - 80 || p.x <= -20 || p.y <= -20){
+                return false;
+            }
+        }
+        for(int i = 1 ; i < snakeLocation.size() ; i++){
+            int snakeHeadX = snakeLocation.get(0).x;
+            int snakeHeadY = snakeLocation.get(0).y;
+            if(snakeHeadX == snakeLocation.get(i).x && snakeHeadY == snakeLocation.get(i).y){
                 return false;
             }
         }
@@ -50,6 +55,10 @@ public class Snake{
 
     public boolean eatApple(){
         return apple.getApple().x == snakeLocation.get(0).x && apple.getApple().y == snakeLocation.get(0).y;
+    }
+
+    public void removeLastSnakePart(){
+        snakeLocation.remove(snakeLocation.size() - 1);
     }
 
     public void setDirection(Direction direction){
