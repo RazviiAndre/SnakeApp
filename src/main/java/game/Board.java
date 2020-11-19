@@ -59,7 +59,7 @@ public class Board extends JPanel implements ActionListener {
         jFrame.setIconImage(JFRAME_ICON.getImage());
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setResizable(false);
-        jFrame.addKeyListener(new InputController());
+        jFrame.addKeyListener(new MovementController());
     }
 
     public void initPanel(){
@@ -93,16 +93,12 @@ public class Board extends JPanel implements ActionListener {
                 gameOver = true;
             }
             if(snake.eatApple()){
-                apple.newApple(JFRAME_HEIGHT-100,JFRAME_WIDTH-100);
+                apple.newApple(JFRAME_HEIGHT-200,JFRAME_WIDTH-200);
             } else {
                 snake.getSnakeLocation().remove(snake.getSnakeLocation().size() - 1);
             }
             repaint();
 
-            System.out.println("SNAKE X:"+snake.getSnakeLocation().get(0).x + " Y:"+snake.getSnakeLocation().get(0).y);
-            System.out.println("APPLE X:"+apple.getApple().x+" Y:"+apple.getApple().y);
-
         }
-        System.out.println(snake.eatApple());
     }
 }

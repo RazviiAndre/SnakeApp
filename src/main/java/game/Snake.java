@@ -16,6 +16,7 @@ public class Snake{
     private static Direction direction = Direction.DOWN;
     private final Apple apple = new Apple();
 
+
     public Snake(){
 
     }
@@ -23,21 +24,22 @@ public class Snake{
     public void move() {
         switch (direction){
             case UP:
-                    snakeLocation.add(0, new Point(snakeLocation.get(0).x, snakeLocation.get(0).y - 20));
+                snakeLocation.add(0, new Point(snakeLocation.get(0).x, snakeLocation.get(0).y - 20));
                 break;
             case DOWN:
-                    snakeLocation.add(0, new Point(snakeLocation.get(0).x, snakeLocation.get(0).y + 20));
+                snakeLocation.add(0, new Point(snakeLocation.get(0).x, snakeLocation.get(0).y + 20));
                 break;
             case LEFT:
-                    snakeLocation.add(0, new Point(snakeLocation.get(0).x - 20, snakeLocation.get(0).y));
+                snakeLocation.add(0, new Point(snakeLocation.get(0).x - 20, snakeLocation.get(0).y));
                 break;
             case RIGHT:
-                    snakeLocation.add(0, new Point(snakeLocation.get(0).x + 20, snakeLocation.get(0).y));
+                snakeLocation.add(0, new Point(snakeLocation.get(0).x + 20, snakeLocation.get(0).y));
                 break;
         }
     }
 
     public boolean checkPosition(int jframe_height, int jframe_width){
+        // TODO: 19-Nov-20 - IMPROVE CHECK POSITION SYSTEM. IF SNAKE LOCATION IS EQUALS SNAKEPARTS LOCATIONS THEN GAMEOVER
         for(Point p : snakeLocation){
             if(p.x == jframe_width - 40 || p.y == jframe_height - 80 || p.x <= -20 || p.y <= -20){
                 return false;

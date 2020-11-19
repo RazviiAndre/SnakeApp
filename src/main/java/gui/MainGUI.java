@@ -9,6 +9,7 @@
 package gui;
 
 import controller.ControllerDB;
+import game.Board;
 import interfaces.Initiable;
 
 import javax.swing.*;
@@ -144,6 +145,7 @@ public class MainGUI extends JFrame implements ActionListener, Initiable, Runnab
     }
 
     public void startGame(ActionEvent av){
+        Board board = new Board();
         this.dispose();
     }
 

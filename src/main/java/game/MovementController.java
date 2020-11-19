@@ -11,22 +11,23 @@ package game;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class InputController extends KeyAdapter {
+public class MovementController extends KeyAdapter {
     public Snake snake = new Snake();
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
-            snake.setDirection(Direction.LEFT);
-        }
-        if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D && snake.getDirection() != Direction.LEFT) {
-            snake.setDirection(Direction.RIGHT);
-        }
-        if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W && snake.getDirection() != Direction.DOWN) {
-            snake.setDirection(Direction.UP);
-        }
-        if (key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S && snake.getDirection() != Direction.UP) {
-            snake.setDirection(Direction.DOWN);
-        }
+        Direction previousDirection = snake.getDirection();
+            if (key == KeyEvent.VK_A && previousDirection != Direction.RIGHT ) {
+                snake.setDirection(Direction.LEFT);
+            }
+            if (key == KeyEvent.VK_D && previousDirection != Direction.LEFT) {
+                snake.setDirection(Direction.RIGHT);
+            }
+            if (key == KeyEvent.VK_W && previousDirection != Direction.DOWN) {
+                snake.setDirection(Direction.UP);
+            }
+            if (key == KeyEvent.VK_S && previousDirection != Direction.UP) {
+                snake.setDirection(Direction.DOWN);
+            }
     }
 }
