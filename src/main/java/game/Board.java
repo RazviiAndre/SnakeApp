@@ -15,13 +15,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// TODO: 19-Nov-20 Improve LIMIT SCREEN FOR GAMEOVER
 
 public class Board extends JPanel implements ActionListener {
     private final static String JFRAME_TITLE = "Snake";
     private static final ImageIcon JFRAME_ICON = new ImageIcon("src/main/resources/icons/snake.png");
     public final static int JFRAME_WIDTH = SettingsGUI.getGameResolutionWidth();
     public final static int JFRAME_HEIGHT = SettingsGUI.getGameResolutionHeight();
-    private static final short OBJECT_SCALE = 20;
+    private static final short OBJECT_SCALE = 35;
 
     public Timer timer;
 
@@ -76,13 +77,8 @@ public class Board extends JPanel implements ActionListener {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        for (Point p : snake.getSnakeLocation()) {
-            g.setColor(Color.RED);
-            g.fillRect(p.x, p.y, OBJECT_SCALE, OBJECT_SCALE);
-        }
-
-        g.setColor(Color.YELLOW);
-        g.fillRect(apple.getApple().x,apple.getApple().y,OBJECT_SCALE,OBJECT_SCALE);
+        snake.paintSnake(g,OBJECT_SCALE);
+        apple.paintApple(g,OBJECT_SCALE);
     }
 
 
@@ -94,7 +90,7 @@ public class Board extends JPanel implements ActionListener {
                 gameOver = true;
             }
             if(snake.eatApple()){
-                apple.newApple(JFRAME_HEIGHT-200,JFRAME_WIDTH-200);
+                apple.newApple(JFRAME_HEIGHT,JFRAME_WIDTH);
             } else {
                 snake.removeLastSnakePart();
             }
