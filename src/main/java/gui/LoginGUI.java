@@ -19,7 +19,7 @@ import java.awt.event.ActionListener;
 public class LoginGUI extends JFrame implements ActionListener, Initiable {
 //    FRAME VARIABLES
     private static final String JFRAME_TITLE = "LOGIN";
-    private static final ImageIcon JFRAME_ICON = new ImageIcon("src/main/resources/login_gui_icon.png");
+    private static final ImageIcon JFRAME_ICON = new ImageIcon("src/main/resources/icons/snakeapp_icon.png");
     private static final Color JFRAME_BACKGROUND_COLOR = Color.decode( "#87BFFF");
     private static final short JFRAME_WIDTH = 600;
     private static final short JFRAME_HEIGHT = 400;

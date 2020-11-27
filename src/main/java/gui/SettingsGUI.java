@@ -20,7 +20,7 @@ import java.awt.event.ItemListener;
 public class SettingsGUI extends JFrame implements Initiable, ActionListener, ItemListener {
     //    FRAME VARIABLES
     private static final String JFRAME_TITLE = "Settings";
-    private static final ImageIcon JFRAME_ICON = new ImageIcon("src/main/resources/main_gui_icon.png");
+    private static final ImageIcon JFRAME_ICON = new ImageIcon("src/main/resources/icons/snakeapp_icon.png");
     private static final Color JFRAME_BACKGROUND_COLOR = Color.decode( "#87BFFF");
     private static final short JFRAME_WIDTH = 600;
     private static final short JFRAME_HEIGHT = 400;
@@ -95,10 +95,6 @@ public class SettingsGUI extends JFrame implements Initiable, ActionListener, It
         jCheckBox_fullscreen.setFocusable(false);
         jCheckBox_fullscreen.addItemListener(this::itemStateChanged3);
 
-
-
-
-
         jBack.setBounds(BUTTON_BACK_LOCATION_X,BUTTON_BACK_LOCATION_Y,BUTTON_SIZE_HGAP, BUTTON_SIZE_VGAP);
         jBack.setOpaque(false);
         jBack.setFont(new Font(BUTTON_FONT_TYPE,BUTTON_FONT_STYLE,BUTTON_FONT_SIZE));
@@ -158,7 +154,7 @@ public class SettingsGUI extends JFrame implements Initiable, ActionListener, It
             jCheckBox_600x400.setSelected(false);
             jCheckBox_fullscreen.setSelected(false);
             GAME_RESOLUTION_WIDTH = 800;
-            GAME_RESOLUTION_HEIGHT = 400;
+            GAME_RESOLUTION_HEIGHT = 600;
         }
     }
 

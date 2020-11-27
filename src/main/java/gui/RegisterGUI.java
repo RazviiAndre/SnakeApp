@@ -20,7 +20,7 @@ import java.awt.event.ActionListener;
 public class RegisterGUI extends JFrame implements ActionListener, Initiable,Runnable {
     //    FRAME VARIABLES
     private static final String JFRAME_TITLE = "REGISTER";
-    private static final ImageIcon JRAME_ICON = new ImageIcon("src/main/resources/register_gui_icon.png");
+    private static final ImageIcon JFRAME_ICON = new ImageIcon("src/main/resources/icons/snakeapp_icon.png");
     private static final Color JFRAME_BACKGROUND_COLOR = Color.decode("#87BFFF");
     private static final short JFRAME_WIDTH = 600;
     private static final short JFRAME_HEIGHT = 400;
@@ -249,7 +249,7 @@ public class RegisterGUI extends JFrame implements ActionListener, Initiable,Run
         setSize(JFRAME_WIDTH, JFRAME_HEIGHT);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setIconImage(JRAME_ICON.getImage());
+        setIconImage(JFRAME_ICON.getImage());
     }
     @Override
     public void initButtons() {
