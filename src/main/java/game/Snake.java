@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-// TODO: 24-Nov-20 Improve functionality for increaseSpeed function.
+// wTODO: 24-Nov-20 Improve functionality for increaseSpeed function.
     public class Snake{
     private static final Image SNAKE_HEAD_ICON_DOWN = new ImageIcon("src/main/resources/icons/snake_down.png").getImage();
     private static final Image SNAKE_HEAD_ICON_UP = new ImageIcon("src/main/resources/icons/snake_up.png").getImage();

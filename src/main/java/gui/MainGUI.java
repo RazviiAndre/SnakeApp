@@ -8,6 +8,7 @@
  #############################################################################*/
 package gui;
 
+import DAO.Account;
 import controller.ControllerDB;
 import game.Board;
 import interfaces.Initiable;
@@ -63,9 +64,11 @@ public class MainGUI extends JFrame implements ActionListener, Initiable, Runnab
     private static final short LABEL_SCORE_LOCATION_Y = -25;
     private static final short LABEL_SCORE_HGAP = 116;
     private static final short LABEL_SCORE_VGAP = 66;
-
-    ControllerDB controllerDB = new ControllerDB();
     JButton jPlay,jLogin,jRegister,jLoggout,jSettings;
+
+    Account account;
+    ControllerDB controllerDB = ControllerDB.getInstance();
+
     JPanel jPanel;
     JLabel jStatus = new JLabel();
     JLabel jUser,jHighScore;
@@ -145,7 +148,7 @@ public class MainGUI extends JFrame implements ActionListener, Initiable, Runnab
     }
 
     public void startGame(ActionEvent av){
-        Board board = new Board();
+        new Board();
         this.dispose();
     }
 
@@ -235,10 +238,21 @@ public class MainGUI extends JFrame implements ActionListener, Initiable, Runnab
         jHighScore = new JLabel("High score: " + controllerDB.getAccount().getScore());
 
         jUser.setBounds(LABEL_USER_LOCATION_X,LABEL_USER_LOCATION_Y,LABEL_USER_HGAP,LABEL_USER_VGAP);
-        jHighScore.setBounds(LABEL_SCORE_LOCATION_X,LABEL_SCORE_LOCATION_Y,LABEL_SCORE_HGAP,LABEL_SCORE_VGAP);
+        jHighScore.setBounds(LABEL_SCORE_LOCATION_X,LABEL_SCORE_LOCATION_Y,LABEL_SCORE_HGAP+20,LABEL_SCORE_VGAP);
         jUser.setForeground(Color.red);
         jHighScore.setForeground(Color.red);
         jUser.setFont(new Font(BUTTON_FONT_TYPE,BUTTON_FONT_STYLE,BUTTON_FONT_SIZE));
         jHighScore.setFont(new Font(BUTTON_FONT_TYPE,BUTTON_FONT_STYLE,BUTTON_FONT_SIZE));
+    }
+
+    public void setHighscore(int score){
+        account = controllerDB.getAccount();
+        if(account.getScore() < score) {
+            jHighScore.setText("High score: " + score);
+            account.setScore(score);
+            controllerDB.updateAccount(account);
+        } else {
+            jHighScore.setText("High score: " + account.getScore());
+        }
     }
 }

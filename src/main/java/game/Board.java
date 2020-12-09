@@ -8,7 +8,9 @@
  #############################################################################*/
 package game;
 
+import gui.MainGUI;
 import gui.SettingsGUI;
+import interfaces.Initiable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,26 +18,32 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 // TODO: 24-Nov-20 ADDING A SCORE LABEL , MAYBE MAXIMUM SPEED and MOVES ? MAYBE A TOP WITH ALL PLAYERS
-public class Board extends JPanel implements ActionListener {
+public class Board extends JPanel implements ActionListener, Initiable {
     private final static String JFRAME_TITLE = "SNAKE";
     private static final ImageIcon JFRAME_ICON = new ImageIcon("src/main/resources/icons/snakeapp_icon.png");
     public final static int JFRAME_WIDTH = SettingsGUI.getGameResolutionWidth();
     public final static int JFRAME_HEIGHT = SettingsGUI.getGameResolutionHeight();
+    private static final String LABEL_FONT_TYPE = "Arial";
+    private static final byte LABEL_FONT_SIZE = 14;
+    private static final byte LABEL_FONT_STYLE = Font.PLAIN;
 
+    public Apple apple = new Apple();
+    public Snake snake = new Snake();
+    public boolean gameOver = false;
     public static Timer timer;
     public static int snakeSpeed = 300;
     public static int increaseSpeedValue = 50;
     public static int increaseSpeedAfterEatApple = 3;
     public static int countEatedApple = 0;
 
-    public static JPanel jPanel;
-    public Snake snake = new Snake();
-    public Apple apple = new Apple();
-    public boolean gameOver = false;
+    JPanel jPanel; // static in caz de probleme TODO STATIC REMOVED
+    JLabel jScore_Text,jScore;
+    JFrame jFrame;
 
     public Board(){
         initFrame();
         initPanel();
+        initLabels();
         startGame();
         endInit();
     }
@@ -51,7 +59,7 @@ public class Board extends JPanel implements ActionListener {
     }
 
     public void initFrame(){
-        JFrame jFrame = new JFrame(JFRAME_TITLE);
+        jFrame = new JFrame(JFRAME_TITLE);
         jFrame.setSize(JFRAME_WIDTH, JFRAME_HEIGHT);
         jFrame.setVisible(true);
         jFrame.setLocationRelativeTo(null);
@@ -60,6 +68,12 @@ public class Board extends JPanel implements ActionListener {
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setResizable(false);
         jFrame.addKeyListener(new MovementController());
+        jFrame.setBackground(Color.GREEN);
+    }
+
+    @Override
+    public void initButtons() {
+
     }
 
     public void initPanel(){
@@ -67,8 +81,29 @@ public class Board extends JPanel implements ActionListener {
         jPanel.setLayout(null);
     }
 
+    @Override
+    public void initLabels() {
+        jScore_Text = new JLabel("Score: ");
+        jScore = new JLabel("0");
+
+        jScore_Text.setBounds(JFRAME_WIDTH/2-35,5,45,10);
+        jScore_Text.setFont(new Font(LABEL_FONT_TYPE,LABEL_FONT_STYLE,LABEL_FONT_SIZE));
+        jScore_Text.setForeground(Color.RED);
+
+        jScore.setBounds(JFRAME_WIDTH/2+15,5,35,10);
+        jScore.setFont(new Font(LABEL_FONT_TYPE,LABEL_FONT_STYLE,LABEL_FONT_SIZE));
+
+    }
+
+    @Override
+    public void initTextFields() {
+
+    }
+
     public void endInit() {
         add(jPanel);
+        add(jScore_Text);
+        add(jScore);
         setVisible(true);
     }
 
@@ -92,6 +127,28 @@ public class Board extends JPanel implements ActionListener {
             countEatedApple = 0;
         }
     }
+    public void updateScore(){
+        jScore.setText(String.valueOf(apple.getScore()));
+    }
+
+    boolean u = true;
+    public void gameOver(){
+        Object[] options = {"Try again.","Back"};
+        if(u) {
+            int response = JOptionPane.showOptionDialog(null, "You died..", "Gameover",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+                    null, options, options[0]);
+            if (response == 0) {
+                 jFrame.dispose();
+                 new Board();
+            } else if (response == 1) {
+                jFrame.dispose();
+                MainGUI mainGUI = new MainGUI();
+                mainGUI.setHighscore(Integer.parseInt(jScore.getText()));
+            }
+            u = false;
+        }
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -103,6 +160,7 @@ public class Board extends JPanel implements ActionListener {
             if(snake.eatApple()){
                 apple.newApple(JFRAME_HEIGHT,JFRAME_WIDTH);
                 increaseSpeed();
+                updateScore();
             } else {
                 snake.removeLastSnakePart();
             }
@@ -113,6 +171,8 @@ public class Board extends JPanel implements ActionListener {
 //            System.out.println("Current speed: " + snakeSpeed);
 //            System.out.println("CountEatedApple: " + countEatedApple);
 //            System.out.println("Score: " + apple.getScore());
+        } else {
+            gameOver();
         }
     }
 }

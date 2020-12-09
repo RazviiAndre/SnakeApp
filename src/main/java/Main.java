@@ -17,7 +17,7 @@ public class Main {
     public static void main(String[] args) {
         MainGUI mainGUI = new MainGUI();
         mainGUI.run();
-        ControllerDB controllerDB = new ControllerDB();
+        ControllerDB controllerDB = ControllerDB.getInstance();
 
 
         Scanner IN = new Scanner(System.in);

@@ -16,10 +16,10 @@ import java.util.Random;
 public class Apple{
     private static final Image APPLE_ICON = new ImageIcon("src/main/resources/icons/apple.png").getImage();
     private static Point apple;
-    private static short score = 0;
+    private short score = 0;
     private static final short APPLE_SCALE = 25;
 
-    Apple(){
+    public Apple(){
         apple = new Point(100,100);
     }
 
@@ -42,6 +42,8 @@ public class Apple{
     public short getScore() {
         return score;
     }
+
+
 
     public void setApple(Point apple) {
         Apple.apple = apple;

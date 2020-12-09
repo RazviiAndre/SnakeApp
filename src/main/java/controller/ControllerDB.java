@@ -20,9 +20,19 @@ import javax.persistence.Query;
 
 public class ControllerDB {
     Configuration config;
-    SessionFactory sessionFactory;
-    Session session;
-    Transaction transaction;
+    SessionFactory sessionFactory; // static
+    Session session; // static
+    Transaction transaction; //static
+
+    private static ControllerDB instance;
+    private ControllerDB(){}
+
+    public static ControllerDB getInstance(){
+        if(instance == null){
+            instance = new ControllerDB();
+        }
+        return instance;
+    }
 
 //    STRING COLORS
     static String green = "\033[32m";
@@ -33,8 +43,6 @@ public class ControllerDB {
     boolean userExist;
     boolean emailExist;
 
-    public ControllerDB(){
-    }
 
     public void init(){
         try {
@@ -83,6 +91,18 @@ public class ControllerDB {
         System.out.println("LOGGED OUT ! " + account.toString());
     }
 
+    public void updateAccount(Account account){
+        try {
+            transaction = session.beginTransaction();
+            session.update(account);
+            transaction.commit();
+        } catch (Exception e){
+            e.printStackTrace();
+            System.out.println("upateAccount error method");
+        }
+    }
+
+
     public boolean canAdd(Account account){
         boolean accountHaveThisUser = true;
         boolean accountHaveThisEmail = true;
@@ -119,6 +139,8 @@ public class ControllerDB {
         session.save(o);
         transaction.commit();
     }
+
+
     public Account getAccount() {
         return account;
     }

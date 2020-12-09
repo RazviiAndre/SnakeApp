@@ -98,7 +98,7 @@ public class RegisterGUI extends JFrame implements ActionListener, Initiable,Run
     JLabel jLabel_User_Conditions, jLabel_Password_Conditions, jLabel_Email_Conditions, jLabel_Phone_Conditions;
     JTextField jText_User, jText_Email, jText_Phone;
     JPasswordField jPasswordField, jRetypePasswordField;
-    ControllerDB controllerDB = new ControllerDB();
+    ControllerDB controllerDB = ControllerDB.getInstance();
     Account account;
 
     public RegisterGUI() {
@@ -136,7 +136,6 @@ public class RegisterGUI extends JFrame implements ActionListener, Initiable,Run
         if (textFieldPassConditions) {
             account = new Account(jText_User.getText(), String.valueOf(jPasswordField.getPassword()), String.valueOf(jRetypePasswordField.getPassword()),
                     jText_Email.getText(), jText_Phone.getText());
-            controllerDB.init();
             if (controllerDB.canAdd(account)) {
                 controllerDB.add(account);
                 JOptionPane.showMessageDialog(jPanel, ALERT_REGISTER_TEXT, ALERT_REGISTER_TITLE, JOptionPane.INFORMATION_MESSAGE, new ImageIcon(ICON_SUCCES));

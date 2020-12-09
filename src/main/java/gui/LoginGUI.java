@@ -71,7 +71,7 @@ public class LoginGUI extends JFrame implements ActionListener, Initiable {
     JLabel jLabel_User,jLabel_Password;
     JTextField jText_User;
     JPasswordField jPasswordField;
-    ControllerDB controllerDB = new ControllerDB();
+    ControllerDB controllerDB = ControllerDB.getInstance();
 
     public LoginGUI(){
         initFrame();
@@ -89,7 +89,7 @@ public class LoginGUI extends JFrame implements ActionListener, Initiable {
     }
     public void loginPerformed(ActionEvent actionEvent){
         if(controllerDB.getStatus()) {
-            controllerDB.init();
+//            controllerDB.init();
             if (controllerDB.tryLogin(jText_User.getText(), jPasswordField.getText())) {
                 JOptionPane.showMessageDialog(jPanel, ALERT_LOGIN_SUCCES_TEXT, ALERT_LOGIN_SUCCES_TITLE, JOptionPane.PLAIN_MESSAGE, new ImageIcon(ICON_SUCCES));
                 MainGUI.setLoggedIn(true);
