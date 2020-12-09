@@ -20,7 +20,7 @@ public class Apple{
     private static final short APPLE_SCALE = 25;
 
     public Apple(){
-        apple = new Point(100,100);
+        apple = new Point(300,150);
     }
 
     public void newApple(int jframe_height, int jframe_width){
@@ -42,8 +42,6 @@ public class Apple{
     public short getScore() {
         return score;
     }
-
-
 
     public void setApple(Point apple) {
         Apple.apple = apple;

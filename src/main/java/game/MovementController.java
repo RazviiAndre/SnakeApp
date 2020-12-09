@@ -13,7 +13,6 @@ import java.awt.event.KeyEvent;
 
 public class MovementController extends KeyAdapter {
     public Snake snake = new Snake();
-    Apple apple = new Apple();
 
     @Override
     public void keyPressed(KeyEvent e) {

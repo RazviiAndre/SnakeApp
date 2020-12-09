@@ -110,47 +110,51 @@ public class RegisterGUI extends JFrame implements ActionListener, Initiable,Run
         endInit();
     }
 
-    //    BUTTON METHODS
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         new MainGUI();
         this.dispose();
     }
 
-    public void registerPerformed(ActionEvent actionEvent) {
+    public void registerThread(){
         if(controllerDB.getStatus()){
-        boolean textFieldPassConditions = true;
-        if (!checkUser(jText_User)) {
-            textFieldPassConditions = false;
-        }
-        if (!checkPassword(jPasswordField, jRetypePasswordField)) {
-            textFieldPassConditions = false;
-        }
-        if (!checkEmail(jText_Email)) {
-            textFieldPassConditions = false;
-        }
-        if (!checkPhone(jText_Phone)) {
-            textFieldPassConditions = false;
-        }
-
-        if (textFieldPassConditions) {
-            account = new Account(jText_User.getText(), String.valueOf(jPasswordField.getPassword()), String.valueOf(jRetypePasswordField.getPassword()),
-                    jText_Email.getText(), jText_Phone.getText());
-            if (controllerDB.canAdd(account)) {
-                controllerDB.add(account);
-                JOptionPane.showMessageDialog(jPanel, ALERT_REGISTER_TEXT, ALERT_REGISTER_TITLE, JOptionPane.INFORMATION_MESSAGE, new ImageIcon(ICON_SUCCES));
-            } else {
-                JOptionPane.showMessageDialog(jPanel, ALERT_DENIED_TEXT + "\n" + controllerDB.whyDenied(), ALERT_DENIED_TITLE, JOptionPane.INFORMATION_MESSAGE, new ImageIcon(ICON_DENIED));
+            boolean textFieldPassConditions = true;
+            if (!checkUser(jText_User)) {
+                textFieldPassConditions = false;
             }
-            jText_User.setText("");
-            jText_Phone.setText("");
-            jText_Email.setText("");
-            jPasswordField.setText("");
-            jRetypePasswordField.setText("");
+            if (!checkPassword(jPasswordField, jRetypePasswordField)) {
+                textFieldPassConditions = false;
+            }
+            if (!checkEmail(jText_Email)) {
+                textFieldPassConditions = false;
+            }
+            if (!checkPhone(jText_Phone)) {
+                textFieldPassConditions = false;
+            }
+
+            if (textFieldPassConditions) {
+                account = new Account(jText_User.getText(), String.valueOf(jPasswordField.getPassword()), String.valueOf(jRetypePasswordField.getPassword()),
+                        jText_Email.getText(), jText_Phone.getText());
+                if (controllerDB.canAdd(account)) {
+                    controllerDB.add(account);
+                    JOptionPane.showMessageDialog(jPanel, ALERT_REGISTER_TEXT, ALERT_REGISTER_TITLE, JOptionPane.INFORMATION_MESSAGE, new ImageIcon(ICON_SUCCES));
+                } else {
+                    JOptionPane.showMessageDialog(jPanel, ALERT_DENIED_TEXT + "\n" + controllerDB.whyDenied(), ALERT_DENIED_TITLE, JOptionPane.INFORMATION_MESSAGE, new ImageIcon(ICON_DENIED));
+                }
+                jText_User.setText("");
+                jText_Phone.setText("");
+                jText_Email.setText("");
+                jPasswordField.setText("");
+                jRetypePasswordField.setText("");
             }
         } else {
             JOptionPane.showMessageDialog(jPanel,ALERT_CANNOT_CONNECT_TO_DATABASE_TEXT,ALERT_CANNOT_CONNECT_TO_DATABASE_TITLE,JOptionPane.OK_OPTION);
         }
+    }
+
+    public void registerPerformed(ActionEvent actionEvent) {
+        Thread thread = new Thread(this::registerThread);
+        thread.start();
     }
 
     //    CHECK CONDITIONS METHODS

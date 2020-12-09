@@ -17,7 +17,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-// TODO: 24-Nov-20 ADDING A SCORE LABEL , MAYBE MAXIMUM SPEED and MOVES ? MAYBE A TOP WITH ALL PLAYERS
 public class Board extends JPanel implements ActionListener, Initiable {
     private final static String JFRAME_TITLE = "SNAKE";
     private static final ImageIcon JFRAME_ICON = new ImageIcon("src/main/resources/icons/snakeapp_icon.png");
@@ -26,17 +25,18 @@ public class Board extends JPanel implements ActionListener, Initiable {
     private static final String LABEL_FONT_TYPE = "Arial";
     private static final byte LABEL_FONT_SIZE = 14;
     private static final byte LABEL_FONT_STYLE = Font.PLAIN;
+    private static final Color backgroundColor = new Color(179, 255, 179);
 
     public Apple apple = new Apple();
     public Snake snake = new Snake();
     public boolean gameOver = false;
     public static Timer timer;
     public static int snakeSpeed = 300;
-    public static int increaseSpeedValue = 50;
+    public static int increaseSpeedValue = 10;
     public static int increaseSpeedAfterEatApple = 3;
     public static int countEatedApple = 0;
 
-    JPanel jPanel; // static in caz de probleme TODO STATIC REMOVED
+    JPanel jPanel;
     JLabel jScore_Text,jScore;
     JFrame jFrame;
 
@@ -46,10 +46,7 @@ public class Board extends JPanel implements ActionListener, Initiable {
         initLabels();
         startGame();
         endInit();
-    }
-
-    public static void main(String[] args) {
-        Board board = new Board();
+        setBackground(backgroundColor);
     }
 
     public void startGame(){
@@ -68,7 +65,6 @@ public class Board extends JPanel implements ActionListener, Initiable {
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setResizable(false);
         jFrame.addKeyListener(new MovementController());
-        jFrame.setBackground(Color.GREEN);
     }
 
     @Override
@@ -119,14 +115,20 @@ public class Board extends JPanel implements ActionListener, Initiable {
             timer = new Timer(speed, this);
             timer.start();
     }
+
     public void increaseSpeed(){
         countEatedApple++;
         if(countEatedApple == increaseSpeedAfterEatApple) {
             snakeSpeed -= increaseSpeedValue;
             controlSpeed(snakeSpeed);
             countEatedApple = 0;
+            increaseSpeedAfterEatApple++;
+            if(snakeSpeed == 100){
+                increaseSpeedValue = 0;
+            }
         }
     }
+
     public void updateScore(){
         jScore.setText(String.valueOf(apple.getScore()));
     }

@@ -64,12 +64,12 @@ public class MainGUI extends JFrame implements ActionListener, Initiable, Runnab
     private static final short LABEL_SCORE_LOCATION_Y = -25;
     private static final short LABEL_SCORE_HGAP = 116;
     private static final short LABEL_SCORE_VGAP = 66;
-    JButton jPlay,jLogin,jRegister,jLoggout,jSettings;
 
     Account account;
     ControllerDB controllerDB = ControllerDB.getInstance();
 
     JPanel jPanel;
+    JButton jPlay,jLogin,jRegister,jLoggout,jSettings;
     JLabel jStatus = new JLabel();
     JLabel jUser,jHighScore;
 
@@ -237,7 +237,7 @@ public class MainGUI extends JFrame implements ActionListener, Initiable, Runnab
         jUser = new JLabel("User: " + controllerDB.getAccount().getUser());
         jHighScore = new JLabel("High score: " + controllerDB.getAccount().getScore());
 
-        jUser.setBounds(LABEL_USER_LOCATION_X,LABEL_USER_LOCATION_Y,LABEL_USER_HGAP,LABEL_USER_VGAP);
+        jUser.setBounds(LABEL_USER_LOCATION_X,LABEL_USER_LOCATION_Y,LABEL_USER_HGAP + 20,LABEL_USER_VGAP);
         jHighScore.setBounds(LABEL_SCORE_LOCATION_X,LABEL_SCORE_LOCATION_Y,LABEL_SCORE_HGAP+20,LABEL_SCORE_VGAP);
         jUser.setForeground(Color.red);
         jHighScore.setForeground(Color.red);
@@ -245,12 +245,17 @@ public class MainGUI extends JFrame implements ActionListener, Initiable, Runnab
         jHighScore.setFont(new Font(BUTTON_FONT_TYPE,BUTTON_FONT_STYLE,BUTTON_FONT_SIZE));
     }
 
+    public void updateScore(){
+        controllerDB.updateAccount(account);
+    }
+
     public void setHighscore(int score){
         account = controllerDB.getAccount();
         if(account.getScore() < score) {
             jHighScore.setText("High score: " + score);
             account.setScore(score);
-            controllerDB.updateAccount(account);
+            Thread thread = new Thread(this::updateScore);
+            thread.start();
         } else {
             jHighScore.setText("High score: " + account.getScore());
         }

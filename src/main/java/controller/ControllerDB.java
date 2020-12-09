@@ -20,9 +20,9 @@ import javax.persistence.Query;
 
 public class ControllerDB {
     Configuration config;
-    SessionFactory sessionFactory; // static
-    Session session; // static
-    Transaction transaction; //static
+    SessionFactory sessionFactory;
+    Session session;
+    Transaction transaction;
 
     private static ControllerDB instance;
     private ControllerDB(){}
@@ -139,7 +139,6 @@ public class ControllerDB {
         session.save(o);
         transaction.commit();
     }
-
 
     public Account getAccount() {
         return account;

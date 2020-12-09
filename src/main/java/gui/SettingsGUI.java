@@ -43,14 +43,6 @@ public class SettingsGUI extends JFrame implements Initiable, ActionListener, It
     private static int GAME_RESOLUTION_WIDTH = 600;
     private static int GAME_RESOLUTION_HEIGHT = 400;
 
-    public static int getGameResolutionWidth() {
-        return GAME_RESOLUTION_WIDTH;
-    }
-
-    public static int getGameResolutionHeight() {
-        return GAME_RESOLUTION_HEIGHT;
-    }
-
     JPanel jPanel;
     JButton jBack;
     JLabel jResolution;
@@ -166,5 +158,13 @@ public class SettingsGUI extends JFrame implements Initiable, ActionListener, It
             GAME_RESOLUTION_WIDTH = 600;
             GAME_RESOLUTION_HEIGHT = 400;
         }
+    }
+
+    public static int getGameResolutionWidth() {
+        return GAME_RESOLUTION_WIDTH;
+    }
+
+    public static int getGameResolutionHeight() {
+        return GAME_RESOLUTION_HEIGHT;
     }
 }

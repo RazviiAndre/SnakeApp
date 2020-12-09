@@ -65,13 +65,13 @@ public class LoginGUI extends JFrame implements ActionListener, Initiable {
     private static final String ALERT_CANNOT_CONNECT_TO_DATABASE_TITLE = "Server down!";
     private static final String ALERT_CANNOT_CONNECT_TO_DATABASE_TEXT = "There is no connection to the database!";
 
+    ControllerDB controllerDB = ControllerDB.getInstance();
 
     JButton jBack,jLogin;
     JPanel jPanel;
     JLabel jLabel_User,jLabel_Password;
     JTextField jText_User;
     JPasswordField jPasswordField;
-    ControllerDB controllerDB = ControllerDB.getInstance();
 
     public LoginGUI(){
         initFrame();
@@ -87,9 +87,9 @@ public class LoginGUI extends JFrame implements ActionListener, Initiable {
         new MainGUI();
         this.dispose();
     }
-    public void loginPerformed(ActionEvent actionEvent){
-        if(controllerDB.getStatus()) {
-//            controllerDB.init();
+
+    public void loginThread() {
+        if (controllerDB.getStatus()) {
             if (controllerDB.tryLogin(jText_User.getText(), jPasswordField.getText())) {
                 JOptionPane.showMessageDialog(jPanel, ALERT_LOGIN_SUCCES_TEXT, ALERT_LOGIN_SUCCES_TITLE, JOptionPane.PLAIN_MESSAGE, new ImageIcon(ICON_SUCCES));
                 MainGUI.setLoggedIn(true);
@@ -101,8 +101,13 @@ public class LoginGUI extends JFrame implements ActionListener, Initiable {
                 jPasswordField.setText("");
             }
         } else {
-            JOptionPane.showMessageDialog(jPanel,ALERT_CANNOT_CONNECT_TO_DATABASE_TEXT,ALERT_CANNOT_CONNECT_TO_DATABASE_TITLE,JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(jPanel, ALERT_CANNOT_CONNECT_TO_DATABASE_TEXT, ALERT_CANNOT_CONNECT_TO_DATABASE_TITLE, JOptionPane.OK_OPTION);
         }
+    }
+
+    public void loginPerformed(ActionEvent actionEvent){
+        Thread thread = new Thread(this::loginThread);
+        thread.start();
     }
 
     @Override

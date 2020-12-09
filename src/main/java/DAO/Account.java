@@ -65,5 +65,4 @@ public class Account {
     public void setScore(int newScore){
         this.score = newScore;
     }
-   //TODO UPDATE SCORE TO DATABASE , SHOW NEW SCORE IN MAINGUI WHILE CLICK BACK BUTTON
 }
